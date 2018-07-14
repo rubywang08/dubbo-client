@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans        http://www.springframework.org/schema/beans/spring-beans.xsd        http://code.alibabatech.com/schema/dubbo        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <!--服务提供方 -->
+    <dubbo:application name="dubbo-client" owner="ruby"/>
+
+    <!--注册中心 ,file设置service地址缓存-->
+    <dubbo:registry address="zookeeper://192.168.204.129:2181" file="D:/dubbo-sever"/>
+
+
+    <!--<dubbo:reference interface="com.my.IHello" id="helloService" url="dubbo://192.168.204.1:20880/com.my.IHello"/>-->
+    <dubbo:reference interface="com.my.IHello" id="helloService" protocol="dubbo" version="1.0.1"/>
+
+    <!--check="false"可以解决循环依赖的问题，即启动时不检查provider是否提供了该服务 -->
+    <dubbo:reference interface="com.my.IProtocol" id="protocolService" protocol="hessian" check="false"/>
+
+
+</beans>
